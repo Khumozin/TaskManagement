@@ -1,4 +1,9 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using AutoMapper;
 using MediatR;
 using Taskmanagement.Domain;
 using TaskManagement.Application.Contracts.Persistence;
@@ -26,7 +31,7 @@ namespace TaskManagement.Application.Features.Task.Commands.Handlers
                 throw new NotFoundException(nameof(TaskEntity), request.ID);
 
             await _unitOfWork.TaskRepository.Delete(task);
-            await _unitOfWork.Save();
+            await _unitOfWork.Save(cancellationToken);
 
             return;
         }

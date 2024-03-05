@@ -31,25 +31,18 @@ namespace TaskManagement.Application.Features.Task.Commands.Handlers
             if (task is null)
                 throw new NotFoundException(nameof(TaskEntity), request.ID);
 
-            if (request.TaskDTO != null)
-            {
-                var validator = new UpdateTaskDTOValidator((ITaskRepository)_unitOfWork.TaskRepository);
-                var validationResult = await validator.ValidateAsync(request.TaskDTO, cancellationToken);
 
-                if (validationResult.IsValid == false)
-                    throw new ValidationException(validationResult);
+            var validator = new UpdateTaskDTOValidator((ITaskRepository)_unitOfWork.TaskRepository);
+            var validationResult = await validator.ValidateAsync(request.TaskDTO, cancellationToken);
 
-                _mapper.Map(request.TaskDTO, task);
+            if (validationResult.IsValid == false)
+                throw new ValidationException(validationResult);
 
-                await _unitOfWork.TaskRepository.Update(task);
-                await _unitOfWork.Save();
-            }
-            else if (request.ChangeTaskCompleteStatus != null)
-            {
-                await _unitOfWork.TaskRepository.ChangeCompleteStatus(task, request.ChangeTaskCompleteStatus.Complete);
-                await _unitOfWork.Save();
-            }
+            _mapper.Map(request.TaskDTO, task);
 
+            await _unitOfWork.TaskRepository.Update(task);
+            await _unitOfWork.Save(cancellationToken);
+            
             return Unit.Value;
         }
     }

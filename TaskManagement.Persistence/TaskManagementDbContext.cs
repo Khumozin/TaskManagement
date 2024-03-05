@@ -24,10 +24,12 @@ namespace TaskManagement.Persistence
             foreach (var entry in ChangeTracker.Entries<BaseDomainEntity>())
             {
                 entry.Entity.LastModifiedDate = DateTime.Now;
+                entry.Entity.LastModifiedBy = "Khumozin";
 
                 if (entry.State == EntityState.Added)
                 {
                     entry.Entity.DateCreated = DateTime.Now;
+                    entry.Entity.CreatedBy = "KhumoMogorosi";
                 }
             }
 
