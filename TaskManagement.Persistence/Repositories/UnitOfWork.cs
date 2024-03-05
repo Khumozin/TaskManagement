@@ -1,4 +1,5 @@
-﻿using TaskManagement.Application.Contracts.Persistence;
+﻿using Microsoft.EntityFrameworkCore;
+using TaskManagement.Application.Contracts.Persistence;
 
 namespace TaskManagement.Persistence.Repositories
 {
@@ -22,9 +23,9 @@ namespace TaskManagement.Persistence.Repositories
             GC.SuppressFinalize(this);
         }
 
-        public async Task Save()
+        public async Task Save(CancellationToken cancellationToken)
         {
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
         }
 
     }

@@ -5,6 +5,12 @@ using TaskManagement.Application.Contracts.Persistence;
 using TaskManagement.Application.DTOs.Task.Validators;
 using TaskManagement.Application.Features.Task.Commands.Requests;
 using TaskManagement.Application.Responses;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace TaskManagement.Application.Features.Task.Commands.Handlers
 {
@@ -28,14 +34,14 @@ namespace TaskManagement.Application.Features.Task.Commands.Handlers
             if (!validationResult.IsValid)
             {
                 response.Success = false;
-                response.Message = "Failed to create task";
+                response.Message = "Failed to create a task";
                 response.Errors = validationResult.Errors.Select(q => q.ErrorMessage).ToList();
             }
             else
             {
                 var task = _mapper.Map<TaskEntity>(request.taskDTO);
                 task = await _unitOfWork.TaskRepository.Add(task);
-                await _unitOfWork.Save();
+                await _unitOfWork.Save(cancellationToken);
 
                 response.Success = true;
                 response.Message = "Task created successfully";

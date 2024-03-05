@@ -53,14 +53,6 @@ namespace TaskManagement.API.Controllers
             return NoContent();
         }
 
-        [HttpPut("changecompletestatus")]
-        public async Task<ActionResult> ChangeComplete(Guid id, [FromBody] ChangeTaskCompleteStatusDTO value)
-        {
-            var command = new UpdateTaskCommand { ChangeTaskCompleteStatus = value, ID = id };
-            await _mediator.Send(command);
-            return NoContent();
-        }
-
         // DELETE api/<TasksController>/5
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(Guid id)

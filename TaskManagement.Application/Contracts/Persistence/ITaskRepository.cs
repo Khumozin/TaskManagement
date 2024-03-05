@@ -9,6 +9,5 @@ namespace TaskManagement.Application.Contracts.Persistence
 {
     public interface ITaskRepository : IGenericRepository<TaskEntity>
     {
-        Task ChangeCompleteStatus(TaskEntity entity, bool? CompleteStatus);
     }
 }

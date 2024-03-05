@@ -12,6 +12,5 @@ namespace TaskManagement.Application.Features.Task.Commands.Requests
     {
         public Guid ID { get; set; }
         public UpdateTaskDTO TaskDTO { get; set; }
-        public ChangeTaskCompleteStatusDTO ChangeTaskCompleteStatus { get; set; }
     }
 }
