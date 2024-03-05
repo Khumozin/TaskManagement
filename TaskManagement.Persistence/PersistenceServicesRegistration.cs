@@ -16,6 +16,8 @@ namespace TaskManagement.Persistence
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
             services.AddScoped<ITaskRepository, TaskRepository>();
 
             return services;
