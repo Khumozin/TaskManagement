@@ -41,7 +41,7 @@ namespace TaskManagement.Application.Features.Task.Commands.Handlers
             _mapper.Map(request.TaskDTO, task);
 
             await _unitOfWork.TaskRepository.Update(task);
-            await _unitOfWork.Save(cancellationToken);
+            await _unitOfWork.Save();
             
             return Unit.Value;
         }

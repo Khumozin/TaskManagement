@@ -19,21 +19,21 @@ namespace TaskManagement.Persistence
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(TaskManagementDbContext).Assembly);
         }
 
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<int> SaveChangesAsync(string username = "SYSTEM")
         {
             foreach (var entry in ChangeTracker.Entries<BaseDomainEntity>())
             {
                 entry.Entity.LastModifiedDate = DateTime.Now;
-                entry.Entity.LastModifiedBy = "Khumozin";
+                entry.Entity.LastModifiedBy = username;
 
                 if (entry.State == EntityState.Added)
                 {
                     entry.Entity.DateCreated = DateTime.Now;
-                    entry.Entity.CreatedBy = "KhumoMogorosi";
+                    entry.Entity.CreatedBy = username;
                 }
             }
 
-            return base.SaveChangesAsync(cancellationToken);
+            return await base.SaveChangesAsync();
         }
     }
 }

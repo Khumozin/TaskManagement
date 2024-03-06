@@ -31,7 +31,7 @@ namespace TaskManagement.Application.Features.Task.Commands.Handlers
                 throw new NotFoundException(nameof(TaskEntity), request.ID);
 
             await _unitOfWork.TaskRepository.Delete(task);
-            await _unitOfWork.Save(cancellationToken);
+            await _unitOfWork.Save();
 
             return;
         }
