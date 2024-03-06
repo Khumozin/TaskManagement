@@ -23,9 +23,9 @@ namespace TaskManagement.Persistence.Repositories
             GC.SuppressFinalize(this);
         }
 
-        public async Task Save(CancellationToken cancellationToken)
+        public async Task Save()
         {
-            await _context.SaveChangesAsync(cancellationToken);
+            await _context.SaveChangesAsync();
         }
 
     }

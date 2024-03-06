@@ -41,7 +41,7 @@ namespace TaskManagement.Application.Features.Task.Commands.Handlers
             {
                 var task = _mapper.Map<TaskEntity>(request.taskDTO);
                 task = await _unitOfWork.TaskRepository.Add(task);
-                await _unitOfWork.Save(cancellationToken);
+                await _unitOfWork.Save();
 
                 response.Success = true;
                 response.Message = "Task created successfully";

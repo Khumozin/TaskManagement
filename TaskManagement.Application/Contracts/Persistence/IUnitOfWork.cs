@@ -9,6 +9,6 @@ namespace TaskManagement.Application.Contracts.Persistence
     public interface IUnitOfWork : IDisposable
     {
         ITaskRepository TaskRepository { get; }
-        Task Save(CancellationToken cancellationToken);
+        Task Save();
     }
 }
