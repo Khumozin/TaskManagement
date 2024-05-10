@@ -4,11 +4,11 @@ using TaskManagement.Application.Exceptions;
 
 namespace TaskManagement.API.Middleware
 {
-    public class ExeptionMiddleware
+    public class ExceptionMiddleware
     {
         private readonly RequestDelegate _next;
 
-        public ExeptionMiddleware(RequestDelegate next)
+        public ExceptionMiddleware(RequestDelegate next)
         {
             _next = next;
         }

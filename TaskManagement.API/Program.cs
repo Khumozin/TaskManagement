@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using TaskManagement.API.Middleware;
 using TaskManagement.Application;
 using TaskManagement.Persistence;
@@ -16,14 +17,19 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-app.UseMiddleware<ExeptionMiddleware>();
+app.UseMiddleware<ExceptionMiddleware>();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+// if (app.Environment.IsDevelopment())
+// {
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+
+    using var serviceScope = app.Services.CreateScope();
+    using var dbContext = serviceScope.ServiceProvider.GetService<TaskManagementDbContext>();
+
+    dbContext?.Database.Migrate();
+// }
 
 app.UseCors(x => x.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
 
